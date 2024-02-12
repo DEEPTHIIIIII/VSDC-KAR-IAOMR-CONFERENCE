@@ -43,12 +43,12 @@ This full-stack project is designed for managing the VSDC Karnataka IAOMR confer
 4. Set up MongoDB:
    
    - Install MongoDB on your system if not already installed.
-   - Configure the MongoDB connection in `app.js` or the appropriate configuration file.
+   - Configure the MongoDB connection in `server.js` .
 
 5. Start the server:
 
    ```
-   npm start
+   node server.js
    ```
 
 6. Access the application:
