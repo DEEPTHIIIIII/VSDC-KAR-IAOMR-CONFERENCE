@@ -25,7 +25,7 @@ This full-stack project is designed for managing the VSDC Karnataka IAOMR confer
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/VSDC-KAR-IAOMR-CONFERENCE.git
+   git clone https://github.com/DEEPTHIIIIII/VSDC-KAR-IAOMR-CONFERENCE.git
    ```
 
 2. Navigate to the project directory:
