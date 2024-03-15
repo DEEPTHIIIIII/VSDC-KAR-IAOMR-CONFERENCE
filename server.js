@@ -126,7 +126,7 @@ app.post('/register', async (req, res) => {
             // Duplicate transactionId error
             return res.status(400).send(`
                 <script>
-                    alert("Transaction ID already used for registration. Please check your email for confirmation. For further details, Contact  91139 99625 ");
+                    alert("Transaction ID already used for registration. Please check your email for confirmation. For further details, Contact Us ");
                     window.location.href = '/';
                 </script>
             `);
