@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -19,7 +18,6 @@ app.get("/", (req, res) => {
 app.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'payment.html'));
 });
-
 
 mongoose.connect(process.env.MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -70,6 +68,14 @@ registrationSchema.pre('save', async function(next) {
 
 const Registration = mongoose.model('Registration', registrationSchema);
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.USER,
+        pass: process.env.PASS
+    }
+});
+
 app.post('/register', async (req, res) => {
     try {
         const newRegistration = new Registration({
@@ -104,7 +110,6 @@ app.post('/register', async (req, res) => {
                 We eagerly anticipate your presence and active participation at the Karnataka State OMR UG Conference-2024.
             `
         };
-        
 
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -114,22 +119,25 @@ app.post('/register', async (req, res) => {
             }
         });
 
+        // Registration successful, send response
         res.sendFile(path.join(__dirname, 'views', 'index.html'));
     } catch (error) {
-        console.error('Error processing registration:', error);
-        res.status(500).send('Error processing registration');
-    }
-});
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user:process.env.USER,
-        pass:process.env.PASS
+        if (error.code === 11000 && error.keyPattern.transactionId === 1) {
+            // Duplicate transactionId error
+            return res.status(400).send(`
+                <script>
+                    alert("Transaction ID already used for registration. Please check your email for confirmation. For further details, Contact  91139 99625 ");
+                    window.location.href = '/';
+                </script>
+            `);
+        } else {
+            // Other errors
+            console.error('Error processing registration:', error);
+            res.status(500).send('Error processing registration');
+        }
     }
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(Server is running on http://localhost:${port});
 });
-
