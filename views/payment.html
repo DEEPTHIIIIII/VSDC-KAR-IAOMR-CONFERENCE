@@ -104,7 +104,7 @@
         <th>AMOUNT</th>
       </tr>
       <tr>
-        <td>Student delegates</td>
+        <td>Student Delegates</td>
         <td>1500/-</td>
       </tr>
       <tr>
@@ -112,7 +112,7 @@
         <td>2000/-</td>
       </tr>
       <tr>
-        <td>Staff delegates</td>
+        <td>Staff Delegates</td>
         <td>1500/-</td>
       </tr>
       <tr>
@@ -127,7 +127,7 @@
     
     <div class="payment" style="padding-right: 20px;">
         <div class="seat-type">
-            <h2>Student delegates</h2>
+            <h2> Student Delegates</h2>
             <p>Amount: Rs 1500/-</p>
             <form action="/register" method="POST" >
             <div class="account-details">
@@ -139,11 +139,11 @@
               <input type="number" placeholder="Enter your phone number" ng-model="p" name="phno" required>
               <label>College Name</label>
               <input type="text" placeholder="Enter your college name" ng-model="c" name="colname" required>
-              <input type="hidden" name="registrationType" value="Delegates">
+              <input type="hidden" name="registrationType" value="Student Delegates">
               <input type="hidden" name="amount" value="1500">
           </div><br/><br/>
             <div class="qr-code">
-              <img src="/images/IAOR 1500RS..png" alt="QR Code for Delegates">
+                <img src="/images/IAOR 1500RS..png" alt="QR Code for Delegates">
             </div>
             <br/><br/>
           <h4>After you pay the amount , please enter UPI Transaction ID below</h4>
@@ -157,7 +157,7 @@
     </div>
     <div class="payment" style="padding-right: 20px;">
       <div class="seat-type">
-          <h2>Staff delegates</h2>
+          <h2>Staff Delegates</h2>
           <p>Amount: Rs 1500/-</p>
           <form action="/register" method="POST">
           <div class="account-details">
@@ -169,7 +169,7 @@
               <input type="number" placeholder="Enter your phone number" name="phno" required>
               <label>College Name</label>
               <input type="text" placeholder="Enter your college name" name="colname" required>
-              <input type="hidden" name="registrationType" value="Staff">
+              <input type="hidden" name="registrationType" value="Staff Delegates">
               <input type="hidden" name="amount" value="1500">
           </div><br/><br/>
           <div class="qr-code">
@@ -186,7 +186,7 @@
   </div>
   <div class="payment" style="padding-right: 20px;">
         <div class="seat-type">
-            <h2>Student delegates with Pre-Conference Course</h2>
+            <h2>Student Delegates with Pre-Conference Course</h2>
             <p>Amount: Rs 2000/-</p>
             <form action="/register" method="POST">
             <div class="account-details">
@@ -198,14 +198,23 @@
               <input type="number" placeholder="Enter your phone number" name="phno" required>
               <label>College Name</label>
               <input type="text" placeholder="Enter your college name" name="colname" required>
-              <label>Pre Conference Type</label>
+              <!-- <label>Pre Conference Type</label>
               <select id="conferenceSelect" onchange="handleSelectChange()" required>
                 <option value="" selected disabled>Select Conference</option>
                 <option value="1">Lasers in Oral Medicine By Dr Balasubramaniam</option>
                 <option value="2">Chairside Investigations By Dr Ashwini Deshpande</option>
                 <option value="3">Skills for a 21st century Dentist By Dr Vasanthi</option>
             </select>
-            <input type="hidden" name="registrationType" value="Delegates with Pre Conference Course">
+            
+            <input type="hidden" name="registrationType" value="Student Delegates with Pre Conference Course"> -->
+            <label>Pre Conference Type</label>
+                <select id="conferenceSelect" onchange="document.getElementById('registrationType').value = 'Student Delegates with Pre Conference Course - ' + this.options[this.selectedIndex].text;" required>
+                    <option value="" selected disabled>Select Conference</option>
+                    <option value="1">Lasers in Oral Medicine By Dr Balasubramaniam</option>
+                    <option value="2">Chairside Investigations By Dr Ashwini Deshpande</option>
+                    <option value="3">Skills for a 21st century Dentist By Dr Vasanthi</option>
+                </select>
+                <input type="hidden" name="registrationType" id="registrationType" value="">
             
               
               <input type="hidden" name="amount" value="2000">
@@ -242,59 +251,35 @@
 </body>
 <script>
   function handleSelectChange() {
-    var selectElement = document.getElementById("conferenceSelect");
-    var hiddenInputElement = document.querySelector("input[name='registrationType']");
-    var selectedOption = selectElement.options[selectElement.selectedIndex].text;
-    if (selectedOption.trim() === "") {
-        alert("Please select a conference option.");
-        return;
-    }
-    hiddenInputElement.value = "Delegates " + selectedOption;
-    
-}
-// JavaScript file
-
-// Function to validate form fields before enabling the "PAID" button
-/*function validateFormInputs(paymentDiv) {
-    var inputs = paymentDiv.querySelectorAll('input');
-    for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].value.trim()) {
-            alert('Please fill in all the fields.');
-            return false;
-        }
-    }
-    return true;
-}*/
-
-// Function to show UPI transaction ID input field
-/*function showTransactionInput(button) {
-  var paymentDiv = button.closest('.payment');
-  var nameInput = paymentDiv.querySelector('input[name="name"]');
-  var mailInput = paymentDiv.querySelector('input[name="mail"]');
-  var phnoInput = paymentDiv.querySelector('input[name="phno"]');
-  var colnameInput = paymentDiv.querySelector('input[name="colname"]');
-
-  // Check if all fields are filled
-  if (!nameInput.value.trim() || !mailInput.value.trim() || !phnoInput.value.trim() || !colnameInput.value.trim()) {
-    alert("Fill all the fields!");
-    return;
+      var selectElement = document.getElementById("conferenceSelect");
+      var hiddenInputElement = document.querySelector("input[name='registrationType']");
+      var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+      if (selectedOption === "") {
+          alert("Please select a conference option.");
+          return;
+      }
+      hiddenInputElement.value = selectedOption;
   }
-*/
-  // var transactionIdDiv = paymentDiv.querySelector('.transaction-id');
-  // if (transactionIdDiv) {
-  //   transactionIdDiv.style.display = 'block';
-  // }
+
+  function submitTransaction(button) {
+      var transactionIdInput = button.parentElement.querySelector('#upi-transaction-id');
+      var transactionId = transactionIdInput.value;
+      
+      // Check if transaction ID is provided
+      if (!transactionId || transactionId.trim() === "") {
+          alert("Please enter the UPI Transaction ID.");
+          return;
+      }
+
+      // Process the transaction ID as needed
+      console.log('Transaction ID:', transactionId);
+      // You can add further processing here, like sending the transaction ID to a server
+
+      // Display registration success alert
+      alert("Registration successful! Please check your email for your UID. For security reasons, please do not share your UID and refrain from submitting multiple times.");
+  }
+</script>
 
 
-
-
-function submitTransaction(button) {
-            var transactionIdInput = button.parentElement.querySelector('#upi-transaction-id');
-            var transactionId = transactionIdInput.value;
-            // Process the transaction ID as needed
-            console.log('Transaction ID:', transactionId);
-            // You can add further processing here, like sending the transaction ID to a server
-        }
-    </script>
 </script>
 </html>
