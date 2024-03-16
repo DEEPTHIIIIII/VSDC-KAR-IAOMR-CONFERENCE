@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="icon" href="images/indexlogo.png" type="image/png" sizes="16x16">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -116,7 +115,7 @@
         <td>1500/-</td>
       </tr>
       <tr>
-        <td>Pre-Conference Course  Fee </td>
+        <td>Conference Course  Fee </td>
         <td>500/-</td>
       </tr>
     </table>
@@ -186,7 +185,7 @@
   </div>
   <div class="payment" style="padding-right: 20px;">
         <div class="seat-type">
-            <h2>Student Delegates with Pre-Conference Course</h2>
+            <h2>Student Delegates with Conference Course</h2>
             <p>Amount: Rs 2000/-</p>
             <form action="/register" method="POST">
             <div class="account-details">
@@ -207,8 +206,8 @@
             </select>
             
             <input type="hidden" name="registrationType" value="Student Delegates with Pre Conference Course"> -->
-            <label>Pre Conference Type</label>
-                <select id="conferenceSelect" onchange="document.getElementById('registrationType').value = 'Student Delegates with Pre Conference Course - ' + this.options[this.selectedIndex].text;" required>
+            <label>Conference Type</label>
+                <select id="conferenceSelect" onchange="document.getElementById('registrationType').value = 'Student Delegates with Conference Course - ' + this.options[this.selectedIndex].text;" required>
                     <option value="" selected disabled>Select Conference</option>
                     <option value="1">Lasers in Oral Medicine By Dr Balasubramaniam</option>
                     <option value="2">Chairside Investigations By Dr Ashwini Deshpande</option>
@@ -276,7 +275,7 @@
       // You can add further processing here, like sending the transaction ID to a server
 
       // Display registration success alert
-      alert("Registration successful! Please check your email for your UID. For security reasons, please do not share your UID and refrain from submitting multiple times.");
+      //alert("Registration successful! Please check your email for your UID. For security reasons, please do not share your UID and refrain from submitting multiple times.");
   }
 </script>
 
