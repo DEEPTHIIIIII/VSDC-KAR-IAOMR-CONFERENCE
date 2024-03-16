@@ -119,14 +119,19 @@ app.post('/register', async (req, res) => {
             }
         });
 
-        // Registration successful, send response
-        res.sendFile(path.join(__dirname, 'views', 'index.html'));
+        // Registration successful, send response with success alert
+        res.send(`
+            <script>
+                alert("User registration successful! Please check your email for confirmation.");
+                window.location.href = '/';
+            </script>
+        `);
     } catch (error) {
         if (error.code === 11000 && error.keyPattern.transactionId === 1) {
-            // Duplicate transactionId error
-            return res.status(400).send(`
+            // Duplicate transactionId error, send response with alert
+            res.send(`
                 <script>
-                    alert("Transaction ID already used for registration. Please check your email for confirmation. For further details, Contact Us ");
+                    alert("Transaction ID already used for registration. Please check your email for confirmation. For further details, Contact  91139 99625 ");
                     window.location.href = '/';
                 </script>
             `);
